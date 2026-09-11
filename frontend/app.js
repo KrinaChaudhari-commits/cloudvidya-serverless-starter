@@ -37,7 +37,8 @@ async function loadItems() {
           <div class="meta">
             <span class="badge">${escapeHtml(item.category || "General")}</span>
             <span class="badge">${escapeHtml(item.status || "OPEN")}</span>
-            ${item.participantName ? `<span class="badge">${escapeHtml(item.participantName)}</span>` : ""}
+            ${item.location ? `<span class="badge">📍 ${escapeHtml(item.location)}</span>` : ""}
+            ${item.participantName ? `<span class="badge">👤 ${escapeHtml(item.participantName)}</span>` : ""}
             <span>${new Date(item.createdAt).toLocaleString()}</span>
           </div>
         </div>`
@@ -53,10 +54,12 @@ submitBtn.addEventListener("click", async () => {
   const title = document.getElementById("title").value.trim();
   const description = document.getElementById("description").value.trim();
   const category = document.getElementById("category").value;
+  const location = document.getElementById("location").value.trim(); // LOCATION CATCH KARYU
   const participantName = document.getElementById("participantName").value.trim();
 
-  if (!title || !description) {
-    setStatus("Please fill in both the title and description.", "err");
+  // Location ne pan mandatory karyu
+  if (!title || !description || !location) {
+    setStatus("Please fill in title, description, and location.", "err");
     return;
   }
 
@@ -67,7 +70,8 @@ submitBtn.addEventListener("click", async () => {
     const res = await fetch(`${window.API_BASE}/items`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description, category, participantName }),
+      // LOCATION NE PAYLOAD MA ADD KARYU
+      body: JSON.stringify({ title, description, category, location, participantName }),
     });
     const data = await res.json();
 
@@ -75,9 +79,10 @@ submitBtn.addEventListener("click", async () => {
       throw new Error(data.error || "Submission failed.");
     }
 
-    setStatus("Saved! Check the list below, and DynamoDB / CloudWatch in the console.", "ok");
+    setStatus("Saved! Check the list below.", "ok");
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
+    document.getElementById("location").value = ""; // FIELD CLEAR KARYU
     document.getElementById("participantName").value = "";
     loadItems();
   } catch (err) {

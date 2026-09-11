@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CloudVidya Starter</title>
+<title>CampusFix</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1 id="appTitle">CloudVidya Starter</h1>
-    <p>Frontend &rarr; API Gateway &rarr; Lambda &rarr; DynamoDB</p>
+    <h1 id="appTitle">CampusFix</h1>
+    <p>Campus Infrastructure & Maintenance Issue Tracker</p>
   </header>
   <main>
     <div class="card">
@@ -17,20 +17,28 @@
       <div class="flow">
         <span>1. Browser</span><span>&rarr;</span><span>2. API Gateway</span><span>&rarr;</span><span>3. Lambda</span><span>&rarr;</span><span>4. DynamoDB</span>
       </div>
-      <label for="title">Title</label>
-      <input id="title" type="text" placeholder="e.g. Broken classroom projector" />
+      
       <label for="description">Description</label>
       <textarea id="description" placeholder="Describe the issue or idea..."></textarea>
       <label for="category">Category</label>
       <select id="category">
-        <option>Infrastructure</option>
-        <option>Academic</option>
-        <option>Event</option>
-        <option>Other</option>
+        <option value="Electrical">Electrical</option>
+        <option value="Plumbing">Plumbing</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Internet / Wi-Fi">Internet / Wi-Fi</option>
+        <option value="Classroom Equipment">Classroom Equipment</option>
+        <option value="Other">Other</option>
       </select>
-      <label for="participantName">Your name</label>
-      <input id="participantName" type="text" placeholder="e.g. Priya Shah" />
-      <button id="submitBtn">Submit</button>
+      <label for="location">Location</label>
+      <input id="location" type="text" placeholder="e.g. Room 204, 2nd Floor" />
+      
+      <label for="description">Description</label>
+      <textarea id="description" placeholder="Describe the maintenance problem..."></textarea>
+      
+      <label for="participantName">Reported by (Your Name)</label>
+      <input id="participantName" type="text" placeholder="e.g. Rahul Sharma" />
+      
+      <button id="submitBtn">Report Issue</button>
       <div id="status"></div>
     </div>
 
